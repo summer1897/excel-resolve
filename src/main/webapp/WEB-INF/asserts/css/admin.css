@@ -1,0 +1,27 @@
+.settings{
+	margin-top:40px;
+}
+.settings .model{
+	display:inline-block;
+	text-align:center;
+	font-size:30px;
+	background-color:#cccccc;
+	border:1px solid white;
+	cursor: pointer;
+}
+.settings .model-high{
+	background-color:#669966;
+	font-size: 33px;
+	color:white;
+}
+.settings .model span{
+	font-size: 26px;
+}
+.settings .model a{
+	display:block;
+	padding:60px;
+	color:gray;
+}
+.settings .model a:hover {
+	color:white;
+}

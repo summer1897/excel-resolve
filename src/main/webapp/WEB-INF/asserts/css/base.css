@@ -1,0 +1,71 @@
+body{
+	margin:0px;
+	padding:0px;
+	font-family: 微软雅黑;
+}
+a:hover {
+	text-decoration: none;
+}
+.width-all{
+	width: 100%;
+}
+.margin-clear{
+	margin:0px;
+}
+.margin-auto{
+	margin:auto;
+}
+.margin-top-clear{
+	margin-top:0px;
+}
+.margin-bottom-clear{
+	margin-bottom:0px;
+}
+.margin-left-clear{
+	margin-left:0px;
+}
+.margin-right-clear{
+	margin-right:0px;
+}
+.padding-clear{
+	padding:0px;
+}
+.padding-top-clear{
+	padding-top:0px;
+}
+.padding-bottom-clear{
+	
+}
+.padding-left-clear{
+	padding-left:0px;
+}
+.padding-right-clear{
+	padding-right:0px;
+}
+.border-gray{
+	border:1px solid gray;
+}
+.border-red{
+	border:1px solid red;
+}
+.border-e5{
+	border:1px solid #e5e5e5;
+}
+.no-border{
+	border:0px;
+}
+.no-left-border{
+	border-left:0px;
+}
+.no-right-border{
+	border-right:0px;
+}
+.no-bottom-border{
+	border-bottom:0px;
+}
+.no-top-border{
+	border:0px;
+}
+.no-radius{
+	border-radius:0px;
+}

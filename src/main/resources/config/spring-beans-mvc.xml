@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:spring-dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
+	
+	<!-- spring view resolver -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+     	<property name="defaultEncoding" value="UTF-8"/>
+     	<property name="maxUploadSize" value="10000000"/>
+    </bean>
+	<!-- spring mapping to json data -->
+	<!-- 配置视图页面解析编码 -->
+	<!--<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>-->
+
+	<!-- JSON数据解析配置 -->
+	<!--<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringConverter" />
+				<ref bean="jsonConverter" />
+			</list>
+		</property>
+	</bean>-->
+</beans>
