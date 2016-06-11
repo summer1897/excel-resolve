@@ -9,7 +9,6 @@ $(function(){
 	
 	$(".settings").find(".model a").each(function(){
 		$(this).click(function(){
-			alert("hello");
 			$($(this).attr("target")).load($(this).attr("data-target"));
 		})
 	});
