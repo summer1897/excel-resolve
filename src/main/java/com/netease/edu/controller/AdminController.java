@@ -95,8 +95,8 @@ public class AdminController {
 		System.out.println("read data");
 		String path = getFileSavePath(request);
 		
-		List<Title> title = service.readTitle(path,6);
-		List<ArrayList<Object>> cells = service.readData(path,10,6);
+		List<Title> title = service.readTitle(path,5);
+		List<ArrayList<Object>> cells = service.readData(path,10,5);
 		
 		model.addAttribute("title", title);
 		model.addAttribute("cells", cells);
@@ -111,7 +111,7 @@ public class AdminController {
 		
 		try{
 			String path = getFileSavePath(request);
-			List<ArrayList<Object>> classes = service.readDataByClassId(path, classId, 6);
+			List<ArrayList<Object>> classes = service.readDataByClassId(path, classId, 5);
 			response.getOutputStream().write(JSON.toJSONString(classes).getBytes("UTF-8"));
 		}catch(Exception e){
 			e.printStackTrace();
@@ -125,7 +125,7 @@ public class AdminController {
 		System.out.println("row: "+row);
 		try{
 			String path = getFileSavePath(request);
-			List<Object> infoOfRow = service.readDataByRow(path,row,6);
+			List<Object> infoOfRow = service.readDataByRow(path,row,5);
 			response.getOutputStream().write(JSON.toJSONString(infoOfRow).getBytes("UTF-8"));
 		}catch(Exception e){
 			e.printStackTrace();

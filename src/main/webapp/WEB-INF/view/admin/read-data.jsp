@@ -34,7 +34,7 @@ function queryByRowNumber(){
 	
 	$.ajax({
 		type : "get",
-		url : "${basePath}/admin/dbsource/readDataByRowNumber.html",
+		url : "${basePath}/admin/dbsource/readDetailDataByRowNumber.html",
 		data: {row : classNumber},
 		dataType : "json",
 		success : function(data){
@@ -43,13 +43,26 @@ function queryByRowNumber(){
 				return false;
 			}
 			//alert(data.length);
-			var html = "<tr data-row-number='"+data[0]+"' onclick='queryByRowNumber();'>";
+			
+			$("#content").show();
+			$("#simple-table").hide(1000);
+			
+			var title = data.title;
+			var info = data.info;
+			var html = "<table class='table table-bordered'>";
+			for(var i = 0; i < title.length; ++i){
+				html += "<tr><td align='center'>" + title[i].content + "</td>" +
+						"<td align='center'>" + info[i] + "</td></tr>";
+			}
+			html += "</table>";
+			
+			/*var html = "<tr data-row-number='"+data[0]+"' onclick='queryByRowNumber();'>";
 			for(var i = 0; i < data.length; ++i){
 				html += "<td align='center'>" + data[i] + "</td>";
 			}
-			html += "</tr>";
+			html += "</tr>";*/
 			
-			$("#table-body").html(html);
+			$("#content").html(html);
 		}
 	});
 }
@@ -79,13 +92,19 @@ $(function(){
 					layer.msg('没有找到该课程号的课程!', {icon: 5});
 					return false;
 				}
+				
+				$("#simple-table").show();
+				$("#content").hide();
 				var html = "";
 				//alert(data[0][1]);
 				for(var i = 0; i < len; ++i){
-					html += "<tr data-row-number='"+data[i][0]+"'>"
-					for(var j = 0; j < 7; ++j){
+					html += "<tr>"
+					for(var j = 0; j < 6; ++j){
 						html += "<td align='center'>" + data[i][j] + "</td>";
 					}
+					html += "<td align='center' class='info-row'><a href='javascript:void' class='btn btn-sm btn-info' data-row-number='" + data[i][0] +"'>" + 
+							"<span class='glyphicon glyphicon-search'></span>" + 
+							"查看</a></td>";
 					html += "</tr>";
 				}
 				//alert(html);
@@ -96,17 +115,17 @@ $(function(){
 	
 	$("#class-number-query").on('click',queryByRowNumber);
 	
-	$("#table-body").on('mouseover','tr',function(){
+	$("#table-body tr").on('mouseover','.info-row a',function(){
 		//alert("hell");
 		layer.tips('点击查看课程详细信息!', $(this), {
  						tips: [4, '#78BA32']
 		});
 	});
 	
-	$("#table-body").on('click','tr',function(){
+	$("#table-body tr").on('click','.info-row',function(){
 		
 		//$(this).on('click',function(){
-			var row = $(this).attr("data-row-number");
+			var row = $(this).find("a").attr("data-row-number");
 			//alert("heheh");
 			$.ajax({
 				type : "get",
@@ -116,14 +135,18 @@ $(function(){
 				success : function(data){
 					var title = data.title;
 					var info = data.info;
-					var html = "<table class='table table-bordered' id='info'>";
+					var html = "<div><a href='javascript:void' data-target='back' class='btn btn-sm btn-danger'>返回</a></div><table class='table table-bordered' id='info'>";
 					for(var i = 0; i < title.length; ++i){
 						html += "<tr><td align='center'>" + title[i].content + "</td>" +
 								"<td align='center'>" + info[i] + "</td></tr>";
 					}
 					html += "</table>";
+					
 					//alert(html);
-					layer.open({
+					$("#content").slideDown(2000);
+					$("#simple-table").slideUp(3000);
+					$("#content").html(html);
+					/*layer.open({
 						  type: 1,
 						  shade: false,
 						  title: false, //不显示标题
@@ -134,10 +157,16 @@ $(function(){
 						    this.content.show();
 						    //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', {time: 5000, icon:6});
 						  }
-					});
+					});*/
 				}
 			});
 		//})
+	});
+	
+	$("#content").on("click","div a[data-target='back']",function(){
+		//alert("back");
+		$("#simple-table").show();
+		$("#content").hide();
 	});
 });
 //-->
@@ -170,20 +199,28 @@ $(function(){
 				</div>
 			</div>
 		</fieldset>
-		<table class="table table-striped table-bordered">
+		<div id="content"></div>
+		<table class="table table-striped table-bordered" id="simple-table">
 			<thead>
 				<tr>
 					<c:forEach items="${title}" var="t">
 						<td align="center" width="${t.getWidth()}" style="border-bottom:0px;">${t.getContent()}</td>
 					</c:forEach>
+					<td align="center" width="5%" style="border-bottom:0px;">操作</td>
 				</tr>
 			</thead>
 			<tbody id="table-body">
 				<c:forEach items="${cells}" var="row">
-					<tr data-row-number="${row.get(0)}" class="info-row">
+					<tr>
 						<c:forEach items="${row}" var="cell">
 							<td align="center">${cell.toString()}</td>
 						</c:forEach>
+						<td align="center" class="info-row">
+							<a href="javascript:void" data-row-number="${row.get(0)}" class="btn btn-sm btn-info">
+								<span class="glyphicon glyphicon-search"></span>
+								查看
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
