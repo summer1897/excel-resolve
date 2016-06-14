@@ -5,9 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.netease.edu.service.DataResolverService;
 import com.netease.edu.util.FilePathUitl;
+import com.netease.entity.ClassVo;
 import com.netease.entity.Title;
 
 /**
@@ -104,18 +103,20 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/dbsource/readDataByClassId.html",method=RequestMethod.GET)
-	public void readDataByClassId(@RequestParam String classId,
+	public String readDataByClassId(@RequestParam String classId,
 								 HttpServletRequest request,
-								 HttpServletResponse response){
+								 HttpServletResponse response,
+								 Model model){
 		System.out.println("class id: "+classId);
 		
-		try{
-			String path = getFileSavePath(request);
-			List<ArrayList<Object>> classes = service.readDataByClassId(path, classId, 5);
-			response.getOutputStream().write(JSON.toJSONString(classes).getBytes("UTF-8"));
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		String path = getFileSavePath(request);
+		List<Title> title = service.readTitle(path,5);
+		List<ArrayList<Object>> classes = service.readDataByClassId(path, classId, 5);
+		
+		model.addAttribute("title", title);
+		model.addAttribute("classes", classes);
+		
+		return "/admin/class-id-query-result";
 	}
 	
 	@RequestMapping(value="/admin/dbsource/readDataByRowNumber.html",method=RequestMethod.GET)
@@ -132,23 +133,26 @@ public class AdminController {
 		}
 	}
 	
+	
 	@RequestMapping(value="/admin/dbsource/readDetailDataByRowNumber.html",method=RequestMethod.GET)
-	public void readDetailDataByRowNumber(@RequestParam int row,
-										 HttpServletRequest request,
-										 HttpServletResponse response){
-		System.out.println("row: "+row);
-		Map<String,Object> result = new HashMap<String,Object>();
-		try{
-			String path = getFileSavePath(request);
-			List<Title> title = service.readTitle(path);
-			List<Object> infoOfRow = service.readDataByRow(path, row);
-			
-			result.put("title", title);
-			result.put("info",infoOfRow);
-			response.getOutputStream().write(JSON.toJSONString(result).getBytes("UTF-8"));
-		}catch(Exception e){
-			e.printStackTrace();
+	public String readDetailDataByRowNumber(@RequestParam int row,
+											@RequestParam String returnUrl,
+											HttpServletRequest request,
+											HttpServletResponse response,
+											Model model){
+		//System.out.println("row: "+row);
+		String path = getFileSavePath(request);
+		List<Title> title = service.readTitle(path);
+		List<Object> infoOfRow = service.readDataByRow(path, row);
+		
+		List<ClassVo> classesVo = ClassVo.convert(title, infoOfRow);
+		model.addAttribute("classInfos", classesVo);
+		System.out.println(returnUrl);
+		if(!classesVo.isEmpty()){
+			model.addAttribute("returnUrl", returnUrl + "?classId="+classesVo.get(1).getClassInfo());
 		}
+		
+		return "/admin/class-detail-info";
 	}
 	
 }

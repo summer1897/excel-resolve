@@ -1,15 +1,12 @@
 $(function(){
-	$(".settings").find(".model").each(function(){
-		$(this).mouseover(function(){
-			$(this).addClass("model-high");
-		}).mouseout(function(){
-			$(this).removeClass("model-high");
-		});
-	});
+//	alert("hh");
+//	$(".settings").find(".model").each(function(){
+//		$(this).mouseover(function(){
+//			alert("hello");
+//			$(this).addClass("model-high");
+//		}).mouseout(function(){
+//			$(this).removeClass("model-high");
+//		});
+//	});
 	
-	$(".settings").find(".model a").each(function(){
-		$(this).click(function(){
-			$($(this).attr("target")).load($(this).attr("data-target"));
-		})
-	});
 });

@@ -2,29 +2,29 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../common/common.jsp" %>
-<script type="text/javascript" src="${basePath}/asserts/js/admin.js"></script>
+<script type="text/javascript" src="${basePath}/asserts/js/aside.menu.js"></script>
 <div class="settings">
 	<div class="model">
-		<a href="javascript:void" data-target="${basePath}/admin/dbsource/upload.html" target="#admin-content">
+		<a href="javascript:void" data-request-url="${basePath}/admin/dbsource/upload.html" data-asyn-load="true" target="#admin-content">
 			<span class="glyphicon glyphicon-th-list"></span>
 			数据源导入
 		</a>
 	</div>
 	<div class="model" >
-		<a href="javascript:void" data-target="${basePath}/admin/dbsource/add.html" target="#admin-content">
+		<a href="javascript:void" data-request-url="${basePath}/admin/dbsource/add.html" data-asyn-load="true" target="#admin-content">
 			<span class="glyphicon glyphicon-plus"></span>
 			添加
 		</a>
 	</div>
 	<div class="model" >
-		<a href="javascript:void" data-target="${basePath}/admin/" target="#admin-content">
+		<a href="javascript:void" data-request-url="${basePath}/admin/" data-asyn-load="true" target="#admin-content">
 			<span class="glyphicon glyphicon-link"></span>
 			产品介绍
 		</a>
 	</div>
 	<c:if test="${!cells.isEmpty()}">
 		<div class="model">
-			<a class="javascript:void" data-target="${basePath}/admin/dbsource/readData.html" target="#admin-content">
+			<a class="javascript:void" data-request-url="${basePath}/admin/dbsource/readData.html" data-asyn-load="true" target="#admin-content">
 				<span class="glyphicon glyphicon-search"></span>
 				查看数据源
 			</a>

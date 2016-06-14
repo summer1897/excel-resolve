@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp" %>
-<script type="text/javascript" src="${basePath}/asserts/js/admin.js"></script>
+<script type="text/javascript" src="${basePath}/asserts/js/aside.menu.js""></script>
 <style>
 <!--
 .upload-form-button{
@@ -11,32 +11,16 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#upload").click(function(){
-		$($(this).attr("data-target")).trigger("click");
-	});
-	
-	$("#uploadFile").change(function(){
-		$("#upload").val($(this).val());
-	});
-	
-	//$("#upload-form").hide();
-	
-		/*$('#uploadFile').uploadify({
-	        //'buttonClass' : 'upload',
-	        'swf'      : '${basePath}/asserts/js/uploadify.swf',  
-	        'uploader' : '${basePath}/admin/dbsource/upload.html',
-	        'cancelImg' : '${basePath}/asserts/img/uploadify-cancel.png',
-	        'fileObjName' : 'uploadFile',  
-	        'fileSizeLimit' : '0',  
-	        'buttonText' : '请选择...',
-	        //'cancelImg' : '${basePath}/asserts/img/uploadify-cancel.png',
-	        //'fileExt' : '*.xls;*.xlsx',
-	        'onQueueComplete' : function(data) {  
-	        	alert(data.isSuccess);
-	        } 
-	          
-	    });*/
-	    $("#scan-data").hide();
+	   
+	    $("#upload").on('click',function(e){
+			$($(this).attr("data-target")).trigger("click");
+		});
+		
+		$("#uploadFile").change(function(){
+			$("#upload").val($(this).val());
+		});
+	   
+	 $("#scan-data").hide();
 	 $("#upload-handler").click(function(){
 		 $.ajaxFileUpload({
 	         url: '${basePath}/admin/dbsource/upload.html', 
@@ -50,7 +34,6 @@ $(function(){
 	        	 	$("#data-panel").hide();
 	        	 	$("#scan-data").show();
 	        	 }
-	            	// alert("上传成功!");
 	         },
 	         error: function(data, status, e){ 
 	             alert(data);
@@ -62,7 +45,7 @@ $(function(){
 });
 //-->
 </script>
-<div class="" style="width:80%;margin:auto;padding-top:30px;">
+<div style="width:80%;margin:auto;padding-top:30px;">
 	<fieldset id="data-panel">
 		<legend>数据源导入</legend>
 		<form class="form-inline" method="post" enctype="multipart/form-data" id="dbsource-form">
@@ -79,9 +62,7 @@ $(function(){
 		</form>
 	<!-- form-end -->
 	</fieldset>
-	<div class="settings" id="scan-data">
-		<div class="model">
-			<a class="btn btn-sm btn-success" href="javascript:void" data-target="${basePath}/admin/dbsource/readData.html" target="#admin-content">查看导入数据</a>
-		</div>
+	<div id="scan-data">
+		<a class="btn btn-sm btn-success" href="javascript:void" data-request-url="${basePath}/admin/dbsource/readData.html" data-asyn-load="true" target="#admin-content">查看导入数据</a>
 	</div>
 </div>
