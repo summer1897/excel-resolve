@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="excel-resolve:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ExcelResolver.war">
+      <element id="artifact" artifact-name="excel-resolve:war exploded" />
+    </root>
+  </artifact>
+</component>

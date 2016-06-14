@@ -53,7 +53,7 @@ $(function(){
 		}
 		
 		var requestUrl = $(this).attr("data-request-url") + classNumber +"&returnUrl=${basePath}/admin/dbsource/readDataByClassId.html";
-		alert(requestUrl);
+		//alert(requestUrl);
 		$($(this).attr("target")).load(requestUrl);
 	});
 	
